@@ -1,4 +1,4 @@
-const ErrorMessage = () => {
+const ErrorMessage: React.FC = () => {
   return (
     <div>
       <p style={{ textAlign: "center" }}>Error loading images.</p>
