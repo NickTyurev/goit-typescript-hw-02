@@ -10,14 +10,22 @@ import axios from "axios";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 
+
 interface Image {
   id: string;
   urls: { small: string; regular: string };
   alt_description: string | null;
 }
 
+
+interface UnsplashApiResponse {
+  results: Image[];
+  total: number;
+  total_pages: number;
+}
+
 const App: React.FC = () => {
-  const [articles, setArticles] = useState<Image[]>([]); 
+  const [articles, setArticles] = useState<Image[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
@@ -32,7 +40,7 @@ const App: React.FC = () => {
       try {
         setIsLoading(true);
         setIsError(false);
-        const response = await axios.get(
+        const response = await axios.get<UnsplashApiResponse>(
           "https://api.unsplash.com/search/photos",
           {
             params: {
